@@ -123,12 +123,6 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
 }
 
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1.25rem 0;
-}
 
 /* Progress bar */
 .progress-wrap {
@@ -232,4 +226,50 @@ input:focus, textarea:focus, select:focus {
   color: var(--danger);
   font-size: 0.85rem;
   margin-top: 0.3rem;
+}
+/* Card wrapper look for the whole form */
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.task-form textarea {
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-row select {
+  flex: 1;
+}
+
+.form-row button {
+  flex: 1;
+}
+
+/* Filter/search controls stacked vertically, full width, card-style */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 1.25rem 0;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.controls input,
+.controls select {
+  width: 100%;
 }
