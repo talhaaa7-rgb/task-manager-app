@@ -1,14 +1,120 @@
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --border: #cccccc;
+  --card-bg: #f9f9f9;
+  --accent: #4a90e2;
+}
+
+[data-theme="dark"] {
+  --bg: #1e1e1e;
+  --text: #f0f0f0;
+  --border: #444444;
+  --card-bg: #2a2a2a;
+  --accent: #6aa8f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
+  background: var(--bg);
+  color: var(--text);
   font-family: sans-serif;
   max-width: 600px;
   margin: 0 auto;
   padding: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-.error-msg { color: red; font-size: 0.85rem; }
-.task-item {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  margin: 0.5rem 0;
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Buttons get hover feedback everywhere in the app */
+button {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
   border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
-.task-item.done { opacity: 0.6; text-decoration: line-through; }
+
+button:hover {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+input, textarea, select {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem;
+  transition: border-color 0.2s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+/* Each task card: shadow instead of a flat border, with a fade-in on creation */
+.task-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease, opacity 0.3s ease;
+  animation: fadeIn 0.3s ease;
+}
+
+.task-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.task-item.done {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--border);
+  padding: 2rem 0;
+}
+
+.error-msg {
+  color: #e74c3c;
+  font-size: 0.85rem;
+}
