@@ -16,16 +16,36 @@ export function renderTasks(tasks, handlers, hasAnyTasks = true) {
   tasks.forEach((task) => {
     const div = document.createElement("div");
     div.className = `task-item ${task.status === "done" ? "done" : ""}`;
+    div.dataset.priority = task.priority;
+    div.dataset.id = task.id; // used for event delegation lookups
+
     div.innerHTML = `
-      <strong>${task.title}</strong> (${task.priority})
-      <p>${task.description}</p>
+      <strong class="task-title">${task.title}</strong> (${task.priority})
+      <p class="task-desc">${task.description}</p>
       <button data-action="toggle">${task.status === "done" ? "Undo" : "Complete"}</button>
+      <button data-action="edit">Edit</button>
       <button data-action="delete">Delete</button>
     `;
 
-    div.querySelector('[data-action="toggle"]').addEventListener("click", () => handlers.onToggle(task.id));
-    div.querySelector('[data-action="delete"]').addEventListener("click", () => handlers.onDelete(task.id));
-
     listEl.appendChild(div);
   });
+}
+
+// Turns a single task card into an inline edit form.
+// Called when the user clicks "Edit" on that task.
+export function renderEditForm(taskEl, task, onSave, onCancel) {
+  taskEl.innerHTML = `
+    <input type="text" class="edit-title" value="${task.title}" />
+    <textarea class="edit-desc">${task.description}</textarea>
+    <button data-action="save">Save</button>
+    <button data-action="cancel">Cancel</button>
+  `;
+
+  taskEl.querySelector('[data-action="save"]').addEventListener("click", () => {
+    const newTitle = taskEl.querySelector(".edit-title").value;
+    const newDesc = taskEl.querySelector(".edit-desc").value;
+    onSave(newTitle, newDesc);
+  });
+
+  taskEl.querySelector('[data-action="cancel"]').addEventListener("click", onCancel);
 }
