@@ -9,7 +9,7 @@
 
   <header>
     <h1>Task Manager</h1>
-    <button id="theme-toggle">🌙</button>
+    <button id="theme-toggle" title="Toggle theme (d)">🌙</button>
   </header>
 
   <main>
@@ -49,7 +49,14 @@
       </select>
     </div>
 
-    <div id="task-list"></div>
+  <div class="progress-wrap">
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+  <p class="progress-label" id="progress-label">0% complete</p>
+</div>
+
+<div id="task-list"></div>
   </main>
 
   <script type="module" src="js/main.js"></script>
