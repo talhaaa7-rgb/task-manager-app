@@ -1,11 +1,17 @@
-// Creates a new task object with a unique id and timestamp.
+// Generates a unique-enough ID without relying on crypto.randomUUID(),
+// which only works in secure contexts (https or localhost) — it fails
+// silently on http://<local-ip> when testing on a phone over WiFi.
+function generateId() {
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
 export function createTask({ title, description, priority }) {
   return {
-    id: crypto.randomUUID(),
+    id: generateId(),
     title: title.trim(),
     description: description.trim(),
     priority,
-    status: "pending", // pending | done
+    status: "pending",
     createdAt: Date.now()
   };
 }
